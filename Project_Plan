@@ -1,0 +1,31 @@
+Display
+    Board
+    Pegs
+    Correct
+
+---------------------------
+|                         |
+---------------------------
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|    R    G    B    W     | Correctness
+---------------------------
+User Input: R, G, B, W
+
+
+Check for correctness (using 2d array)
+    Correct Color wrong spot
+    incorrect color
+    correct color correct spot
+    
+Objects
+    series inputted
+    code series
