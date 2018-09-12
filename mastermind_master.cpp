@@ -8,19 +8,19 @@ class mastermind {
 	private:
 		string color1, color2, color3, color4;
 		string master_code[4] = {"black","black","black","black"};
-		string playing_board[12][4] = {{"black","black","black","black"},
-									   {"black","black","black","black"},
-									   {"black","black","black","black"},
-									   {"black","black","black","black"},
-									   {"black","black","black","black"},
-									   {"black","black","black","black"},
-									   {"black","black","black","black"},
-									   {"black","black","black","black"},
-									   {"black","black","black","black"},
-									   {"black","black","black","black"},
-									   {"black","black","black","black"},
-									   {"black","black","black","black"}
-		};
+		string playing_board[12][4] = {{"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "},
+									   {"     ","     ","     ","     "}};
+									  
 	public:
 		void setindex(int y, int x, string choice){
 			playing_board[y][x] = choice;
@@ -44,6 +44,10 @@ class mastermind {
 			cout << "|" << playing_board[row][0] << "|" << "|" << playing_board[row][1] << "|"<< "|" << playing_board[row][2] 
 			<< "|"<< "|" << playing_board[row][3] << "|" << endl;
 		}
+		void display_master_code(){
+			cout << "|" << master_code[0] << "|" << "|" << master_code[1] << "|"<< "|" << master_code[2] 
+			<< "|"<< "|" << master_code[3] << "|" << endl;
+		}
 		void display_game_board(){
 			
 			for(int i=0; i<=11; i++){
@@ -57,17 +61,15 @@ class mastermind {
 		 	for(int i = 0; i < 4; i++){
 				if(playing_board[row][i] == master_code[k]){
 				cout << "You got a red peg\n";
-				k++;
 				red_peg++;
-				if (red_peg == 4){
-					cout << "You won the game" << endl;
-				}
-					
-				continue;
 				}			
-				else if(playing_board[row][i] == master_code[k+1] || playing_board[row][i] == master_code[k+2] || playing_board[row][i] == master_code[k+3]){
+				else if(playing_board[row][i] == master_code[3] || playing_board[row][i] == master_code[2]
+				 || playing_board[row][i] == master_code[1] || playing_board[row][i] == master_code[0]){
 					cout << "You acquired a white peg\n";
+				}else{
+					cout << "No Match\n";
 				}
+				k++;
 			}
 		}
 		
@@ -97,10 +99,10 @@ int main()
 	string color1, color2, color3, color4;
 	
 	int guess_counter = 0;
-	int compare_counter = 0;
+	int compare_row_counter = 0;
 	
 	cout << "Welcome to Mastermind\n";
-	cout << "Code Maker Enter your Code Using Four Colors No Duplicates No Empties for now\n";
+	cout << "Code Maker\nEnter your Color Code Using Blue, Yellow, Red, Orange, Purple, Green Colors\nNo Duplicates No Empties for Now\n";
 	
 	cout << "Enter first color\n";
 	cin >> color1;
@@ -112,9 +114,15 @@ int main()
 	cin >> color4;
 	game.setcode(color1,color2,color3,color4);
 	
-	game.guess_code(guess_counter);
-	guess_counter++;
-	game.compare_to_master(compare_counter);
+	for(int i = 0; i < 12; i++){
+		game.guess_code(guess_counter);
+		guess_counter++;
+		game.compare_to_master(compare_row_counter);
+		compare_row_counter++;
+		game.display_game_board();	
+	}
+	
+	
 	
 }
 	
