@@ -6,6 +6,9 @@ using namespace std;
 class mastermind {
 	
 	private:
+		int guess_counter = 0;
+		int compare_row_counter = 0;
+		bool quit_game = false;
 		string color1, color2, color3, color4;
 		string master_code[4] = {"black","black","black","black"};
 		string playing_board[12][4] = {{"     ","     ","     ","     "},
@@ -55,6 +58,7 @@ class mastermind {
 			}
 			
 		}
+		
 		void compare_to_master(int row){
 			int k = 0;
 			int red_peg = 0;
@@ -69,10 +73,20 @@ class mastermind {
 				}else{
 					cout << "No Match\n";
 				}
+				if (red_peg == 4) {
+					string choice;
+					cout << "You guessed the right code!!!!!!!\nWould you like to play again? Type yes or no";
+					cin >> choice;
+					if (choice == "no") { 
+						
+						system("quit");
+						
+					}		
+				}
 				k++;
-			}
 		}
 		
+		}
 		void guess_code(int guess_counter) {
 			cout << "Code Breaker guess the Code" << endl;
 			cout << "Enter first color\n";
@@ -85,11 +99,33 @@ class mastermind {
 			cin >> color4;
 			setrow(guess_counter, color1,color2,color3,color4);
 		}		
+		
+		void play_game(){
 			
+			cout << "Welcome to Mastermind\n";
+			cout << "Code Maker\nEnter your Color Code Using Blue, Yellow, Red, Orange, Purple, Green Colors\nNo Duplicates No Empties for Now\n";
+	
+			cout << "Enter first color\n";
+			cin >> color1;
+			cout << "Enter second color\n";
+			cin >> color2;
+			cout << "Enter third color\n";
+			cin >> color3;
+			cout << "Enter fourth color\n";
+			cin >> color4;
+			setcode(color1,color2,color3,color4);
+			
+			for(int i = 0; i < 12; i++){
+				guess_code(guess_counter);
+				guess_counter++;
+				compare_to_master(compare_row_counter);
+				compare_row_counter++;
+				display_game_board();	
+			}
+		}
 			
 };
 		
-
 
 
 int main()
@@ -97,33 +133,12 @@ int main()
 	mastermind game;
 	
 	string color1, color2, color3, color4;
-	
-	int guess_counter = 0;
-	int compare_row_counter = 0;
-	
-	cout << "Welcome to Mastermind\n";
-	cout << "Code Maker\nEnter your Color Code Using Blue, Yellow, Red, Orange, Purple, Green Colors\nNo Duplicates No Empties for Now\n";
-	
-	cout << "Enter first color\n";
-	cin >> color1;
-	cout << "Enter second color\n";
-	cin >> color2;
-	cout << "Enter third color\n";
-	cin >> color3;
-	cout << "Enter fourth color\n";
-	cin >> color4;
-	game.setcode(color1,color2,color3,color4);
-	
-	for(int i = 0; i < 12; i++){
-		game.guess_code(guess_counter);
-		guess_counter++;
-		game.compare_to_master(compare_row_counter);
-		compare_row_counter++;
-		game.display_game_board();	
+	bool run_state = true;
+	while(run_state){
+		game.play_game();
 	}
-	
-	
-	
 }
+		
+	
 	
 
